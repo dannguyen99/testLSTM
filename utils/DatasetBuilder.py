@@ -27,7 +27,7 @@ def save_figures_from_video(dataset_video_path, video_filename, suffix, figures_
 
     video_file = os.path.join(dataset_video_path, video_filename + suffix)
     label = 0
-    # print('Extracting frames from video: ', video_file)
+    print('Extracting frames from video: ', video_file)
 
     videoCapture = cv2.VideoCapture(video_file)
     if fix_len is not None:
@@ -81,6 +81,9 @@ def createDataset(datasets_video_path, figure_output_path, fix_len, force=False)
                             video_images['label'] = 1
                     elif dataset_name == "movies":
                         if "fi" in filename:
+                            video_images['label'] = 1
+                    elif dataset_name == 'dataset':
+                        if "ha" in filename:
                             video_images['label'] = 1
                     with open(video_images_file, 'wb') as f:
                         pickle.dump(video_images, f, pickle.HIGHEST_PROTOCOL)
@@ -160,7 +163,7 @@ def crop_img__remove_Dark(img, x_crop, y_crop, x, y, figure_size):
 
 
 def crop_img(img, figure_shape, percentage=0.8, corner="Left_up"):
-    if (corner == None):
+    if corner == None:
         corner = random.choice(corner_keys)
 
     if corner not in corner_keys:

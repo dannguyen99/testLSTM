@@ -21,8 +21,8 @@ dropout = 0
 batch_size = 2
 fix_lens = 5
 datasets_frames = "data/raw_frames"
-dataset_name = 'hocky'
-dataset_videos = dict(hocky="data/raw_videos/HockeyFights")
+dataset_name = 'dataset'
+dataset_videos = dict(dataset="data/raw_videos/Dataset")
 force = True
 epochs = 30
 patience_es = 15
