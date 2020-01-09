@@ -7,7 +7,7 @@ from keras.applications import ResNet50
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau, Callback, ModelCheckpoint
 
 # parameter
-seq_len = 10
+
 size = 244
 learning_rate = 0.0001
 initial_weights = 'glorot_uniform'
@@ -19,7 +19,7 @@ cnn_train_type = 'retrain'
 pre_weights = 'imagenet'
 dropout = 0
 batch_size = 2
-fix_lens = 10
+fix_lens = 5
 datasets_frames = "data/raw_frames"
 dataset_name = 'hocky'
 dataset_videos = dict(hocky="data/raw_videos/HockeyFights")
