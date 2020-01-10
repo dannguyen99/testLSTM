@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
-import tensorflow as tf
 from keras.applications import ResNet50
-from keras.backend.tensorflow_backend import set_session
 from keras.layers import ConvLSTM2D
 from keras.optimizers import RMSprop
 from keras.preprocessing.sequence import pad_sequences
@@ -12,9 +10,9 @@ from utils.VideoBufferForLSTM import VideoBufferForLSTM
 
 
 def test(model_path, video_path, perGPU=0.8, size=244, seq_len=10, classes=1, dropout=0):
-    config = tf.ConfigProto()
-    config.gpu_options.per_process_gpu_memory_fraction = perGPU
-    set_session(tf.Session(config=config))
+    # config = tf.ConfigProto()
+    # config.gpu_options.per_process_gpu_memory_fraction = perGPU
+    # set_session(tf.Session(config=config))
     # model = BuildModel_basic.build(size=size, seq_len=seq_len,
     #                                dropout=dropout, classes=classes)
     size = 244
@@ -39,7 +37,6 @@ def test(model_path, video_path, perGPU=0.8, size=244, seq_len=10, classes=1, dr
         print("Video not opened!")
         return
     dataHandler = VideoBufferForLSTM(len_seq=seq_len, startFrame=frame)
-    print("dataHandler", dataHandler)
     i = 0
     buffer = []
     prvFrame = cv2.resize(frame, (244, 244))
@@ -52,8 +49,6 @@ def test(model_path, video_path, perGPU=0.8, size=244, seq_len=10, classes=1, dr
         if i % 4 == 0:
             frame = cv2.resize(frame, (244, 244))
             frame = (frame / 255.).astype(np.float32)
-            mean = [0.485, 0.456, 0.406]
-            std = [0.229, 0.224, 0.225]
             frame = (frame - mean) / std
             subtractFrame = prvFrame - frame
             buffer.append(subtractFrame)
@@ -72,4 +67,4 @@ def test(model_path, video_path, perGPU=0.8, size=244, seq_len=10, classes=1, dr
 
 if __name__ == '__main__':
     test(model_path='saved-model-fight-PTZ-8frames-42-0.97.hdf5',
-         video_path='data/raw_videos/fi1_xvid.avi', perGPU=0.2)
+         video_path='data/raw_videos/HockeyFights/fi1_xvid.avi', perGPU=0.2)
