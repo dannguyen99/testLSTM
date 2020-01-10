@@ -136,5 +136,23 @@ def train():
     return result
 
 
+def predict():
+    train_gen, validate_gen, test_x, test_y, seq_len, len_train, len_valid = get_generators(dataset_name,
+                                                                                            dataset_videos,
+                                                                                            datasets_frames, fix_lens,
+                                                                                            size,
+                                                                                            force=force,
+                                                                                            classes=classes,
+                                                                                            use_aug=True,
+                                                                                            use_crop=True)
+    model = BuildModel_basic.build(size=size, seq_len=seq_len, learning_rate=learning_rate,
+                                   optimizer_class=optimizer, initial_weights=initial_weights,
+                                   cnn_class=cnn_arch, pre_weights=pre_weights, lstm_conf=lstm_conf,
+                                   cnn_train_type=cnn_train_type, dropout=dropout, classes=classes)
+
+    y = model.predict_generator(generator=train_gen)
+    print(y)
+
+
 if __name__ == '__main__':
-    train()
+    predict()
