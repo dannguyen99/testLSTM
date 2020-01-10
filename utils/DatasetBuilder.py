@@ -82,7 +82,7 @@ def createDataset(datasets_video_path, figure_output_path, fix_len, force=False)
                         if "fi" in filename:
                             video_images['label'] = 1
                     elif dataset_name == 'dataset':
-                        if "hand" in filename:
+                        if filename.startswith('hand'):
                             video_images['label'] = 1
                     with open(video_images_file, 'wb') as f:
                         pickle.dump(video_images, f, pickle.HIGHEST_PROTOCOL)

@@ -8,7 +8,7 @@ from keras.preprocessing.sequence import pad_sequences
 from utils import BuildModel_basic
 
 seq_len = 10
-vid_len = 40
+vid_len = 30
 skip = int(vid_len / seq_len)
 
 
