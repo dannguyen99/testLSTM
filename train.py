@@ -5,6 +5,8 @@ from keras.applications import ResNet50
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau, Callback
 from keras.layers import ConvLSTM2D
 from keras.optimizers import RMSprop
+from numpy.random import seed
+from tensorflow import set_random_seed
 
 from utils import BuildModel_basic, DatasetBuilder
 
@@ -78,6 +80,8 @@ def train():
                                                                                             use_aug=True,
                                                                                             use_crop=True)
     test_history = TestCallback((test_x, test_y))
+    set_random_seed(2)
+    seed(1)
     # create model
     model = BuildModel_basic.build(size=size, seq_len=seq_len, learning_rate=learning_rate,
                                    optimizer_class=optimizer, initial_weights=initial_weights,

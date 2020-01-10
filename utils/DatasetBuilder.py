@@ -26,7 +26,7 @@ def save_figures_from_video(dataset_video_path, video_filename, suffix, figures_
 
     video_file = os.path.join(dataset_video_path, video_filename + suffix)
     label = 0
-    print('Extracting frames from video: ', video_file)
+    # print('Extracting frames from video: ', video_file)
 
     videoCapture = cv2.VideoCapture(video_file)
     if fix_len is not None:
@@ -84,6 +84,9 @@ def createDataset(datasets_video_path, figure_output_path, fix_len, force=False)
                     elif dataset_name == 'dataset':
                         if filename.startswith('hand'):
                             video_images['label'] = 1
+                            print filename, 'label = 1'
+                        else:
+                            print filename, 'label = 0'
                     with open(video_images_file, 'wb') as f:
                         pickle.dump(video_images, f, pickle.HIGHEST_PROTOCOL)
                 dataset_images.append(video_images)
