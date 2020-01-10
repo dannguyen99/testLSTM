@@ -60,7 +60,7 @@ def predict(video_path, model):
     X = np.array(X)
     result = model.predict(X)
     if result[0][0] > 0.5:
-        print("Violence detected!")
+        print("Positive")
     else:
         print("Negative")
 

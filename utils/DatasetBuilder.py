@@ -1,16 +1,15 @@
-import scipy
-import os
-import cv2
-import pickle
 import glob
+import os
+import pickle
+import random
+
+import cv2
 import numpy as np
+import scipy
 from keras.preprocessing.image import load_img, img_to_array
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
-from collections import defaultdict
-from keras.preprocessing import image
-import random
 
 corner_keys = ["Center", "Left_up", "Left_down", "Right_up", "Right_down"]
 
@@ -83,7 +82,7 @@ def createDataset(datasets_video_path, figure_output_path, fix_len, force=False)
                         if "fi" in filename:
                             video_images['label'] = 1
                     elif dataset_name == 'dataset':
-                        if "ha" in filename:
+                        if "hand" in filename:
                             video_images['label'] = 1
                     with open(video_images_file, 'wb') as f:
                         pickle.dump(video_images, f, pickle.HIGHEST_PROTOCOL)
