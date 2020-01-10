@@ -1,13 +1,14 @@
 import os
+
 import pandas as pd
-from utils import BuildModel_basic, DatasetBuilder
+from keras.applications import ResNet50
+from keras.callbacks import EarlyStopping, ReduceLROnPlateau, Callback
 from keras.layers import ConvLSTM2D
 from keras.optimizers import RMSprop
-from keras.applications import ResNet50
-from keras.callbacks import EarlyStopping, ReduceLROnPlateau, Callback, ModelCheckpoint
+
+from utils import BuildModel_basic, DatasetBuilder
 
 # parameter
-
 size = 244
 learning_rate = 0.0001
 initial_weights = 'glorot_uniform'
@@ -19,7 +20,7 @@ cnn_train_type = 'retrain'
 pre_weights = 'imagenet'
 dropout = 0
 batch_size = 2
-fix_lens = 5
+fix_lens = 10
 datasets_frames = "data/raw_frames"
 dataset_name = 'dataset'
 dataset_videos = dict(dataset="data/raw_videos/Dataset")
