@@ -1,3 +1,5 @@
+import os
+
 import cv2
 import numpy as np
 from keras.applications import ResNet50
@@ -61,12 +63,26 @@ def predict(video_path, model):
     result = model.predict(X)
     if result[0][0] > 0.5:
         print("Positive")
+        return True
     else:
         print("Negative")
+        return False
+
+
+def predict_all(data_videos='data/raw_videos/Dataset', model=None):
+    y = np.zeros(len(os.listdir(data_videos)))
+    i = 0
+    for filename in os.listdir(data_videos):
+        if filename.endswith(".avi") or filename.endswith(".mpg"):
+            if predict(os.path.join(data_videos, filename), model):
+                y[i] = 1
+            i += 1
+    y.tofile('predicted.csv', sep=',', format="%d")
 
 
 if __name__ == '__main__':
     model = build_model()
-    while True:
-        path = raw_input("enter video path to predict: ")
-        predict(path, model)
+    # while True:
+    #     path = raw_input("enter video path to predict: ")
+    #     predict(path, model)
+    predict_all(model=model)

@@ -24,8 +24,8 @@ dropout = 0
 batch_size = 2
 fix_lens = 10
 datasets_frames = "data/raw_frames"
-dataset_name = 'hocky'
-dataset_videos = dict(dataset="data/raw_videos/HockeyFights")
+dataset_name = 'dataset'
+dataset_videos = dict(dataset="data/raw_videos/Dataset")
 force = True
 epochs = 30
 patience_es = 15
@@ -149,13 +149,11 @@ def predict():
                                                                                             classes=classes,
                                                                                             use_aug=True,
                                                                                             use_crop=True)
-    model = BuildModel_basic.build(size=size, seq_len=seq_len, learning_rate=learning_rate,
-                                   optimizer_class=optimizer, initial_weights=initial_weights,
-                                   cnn_class=cnn_arch, pre_weights=pre_weights, lstm_conf=lstm_conf,
-                                   cnn_train_type=cnn_train_type, dropout=dropout, classes=classes)
-
-    y = model.predict_generator(generator=train_gen)
-    print(y)
+    # model = BuildModel_basic.build(size=size, seq_len=seq_len, learning_rate=learning_rate,
+    #                                optimizer_class=optimizer, initial_weights=initial_weights,
+    #                                cnn_class=cnn_arch, pre_weights=pre_weights, lstm_conf=lstm_conf,
+    #                                cnn_train_type=cnn_train_type, dropout=dropout, classes=classes)
+    # y = model.predict_generator(generator=train_gen)
 
 
 if __name__ == '__main__':

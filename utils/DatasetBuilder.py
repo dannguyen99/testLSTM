@@ -63,6 +63,8 @@ def createDataset(datasets_video_path, figure_output_path, fix_len, force=False)
         if not os.path.exists(dataset_figures_path):
             os.makedirs(dataset_figures_path)
         dataset_images = []
+        i = 0
+        y = np.zeros(len(os.listdir(dataset_video_path)))
         for filename in os.listdir(dataset_video_path):
             if filename.endswith(".avi") or filename.endswith(".mpg"):
                 video_images_file = os.path.join(dataset_figures_path, filename[:-4], 'video_summary.pkl')
@@ -84,21 +86,22 @@ def createDataset(datasets_video_path, figure_output_path, fix_len, force=False)
                     elif dataset_name == 'dataset':
                         if filename.startswith('hand'):
                             video_images['label'] = 1
-                            print filename, 'label = 1'
-                        else:
-                            print filename, 'label = 0'
+                            y[i] = 1
+                            # print filename, 'label = 1'
+                        # else:
+                        # print filename, 'label = 0'
                     with open(video_images_file, 'wb') as f:
                         pickle.dump(video_images, f, pickle.HIGHEST_PROTOCOL)
                 dataset_images.append(video_images)
                 videos_seq_length.append(video_images['sequence_length'])
                 videos_frames_paths.append(video_images['images_path'])
                 videos_labels.append(video_images['label'])
+            i += 1
         datasets_images[dataset_name] = dataset_images
     avg_length = int(float(sum(videos_seq_length)) / max(len(videos_seq_length), 1))
-
     train_path, test_path, train_y, test_y = train_test_split(videos_frames_paths, videos_labels, test_size=0.20,
                                                               random_state=42)
-
+    y.tofile('matrix.csv', sep=',', format="%d")
     # if apply_aug:
     #     aug_paths = []
     #     aug_y = []
